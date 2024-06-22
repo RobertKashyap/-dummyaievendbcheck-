@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{hotel.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{hotel.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/hotels/add}" class="btn btn-primary ms-2">[[#{hotel.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${hotels.empty}">[[#{hotel.list.empty}]]</div>
+            <div th:if="${!hotels.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{hotel.id.label}]]</th>
+                            <th scope="col">[[#{hotel.numberOfAvailableRooms.label}]]</th>
+                            <th scope="col">[[#{hotel.description.label}]]</th>
+                            <th scope="col">[[#{hotel.hotelName.label}]]</th>
+                            <th scope="col">[[#{hotel.location.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="hotel : ${hotels}">
+                            <td>[[${hotel.id}]]</td>
+                            <td>[[${hotel.numberOfAvailableRooms}]]</td>
+                            <td>[[${hotel.description}]]</td>
+                            <td>[[${hotel.hotelName}]]</td>
+                            <td>[[${hotel.location}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/hotels/edit/{id}(id=${hotel.id})}" class="btn btn-sm btn-secondary">[[#{hotel.list.edit}]]</a>
+                                    <form th:action="@{/hotels/delete/{id}(id=${hotel.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{hotel.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

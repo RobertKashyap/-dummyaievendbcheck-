@@ -1,0 +1,25 @@
+# Maven
+target/
+mvnw
+mvnw.cmd
+.mvn/
+
+# Spring Boot
+*.log
+LOGS/
+logs/
+
+# IDE files
+.vscode/
+*.iml
+
+# Compiled Java class files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Local configuration file (application.properties)
+# src/main/resources/application.properties

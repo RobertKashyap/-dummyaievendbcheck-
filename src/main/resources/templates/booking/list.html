@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{booking.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{booking.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/bookings/add}" class="btn btn-primary ms-2">[[#{booking.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${bookings.empty}">[[#{booking.list.empty}]]</div>
+            <div th:if="${!bookings.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{booking.id.label}]]</th>
+                            <th scope="col">[[#{booking.hotelId.label}]]</th>
+                            <th scope="col">[[#{booking.numberOfRooms.label}]]</th>
+                            <th scope="col">[[#{booking.guestEmail.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="booking : ${bookings}">
+                            <td>[[${booking.id}]]</td>
+                            <td>[[${booking.hotelId}]]</td>
+                            <td>[[${booking.numberOfRooms}]]</td>
+                            <td>[[${booking.guestEmail}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/bookings/edit/{id}(id=${booking.id})}" class="btn btn-sm btn-secondary">[[#{booking.list.edit}]]</a>
+                                    <form th:action="@{/bookings/delete/{id}(id=${booking.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{booking.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
